@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Dashboard</h2>
+    <p id="welcomeMessage"></p>
+    <div id="adminSection" style="display: none;">
+        <h3>Admin Section</h3>
+        <p>Hanya admin yang dapat melihat bagian ini.</p>
+    </div>
+    <div id="userSection" style="display: none;">
+        <h3>User Section</h3>
+        <p>Hanya pengguna biasa yang dapat melihat bagian ini.</p>
+    </div>
+    <button onclick="logout()">Logout</button>
+
+    <script>
+        // Cek session pengguna
+        const username = localStorage.getItem('username');
+        const role = localStorage.getItem('role');
+
+        if (!username || !role) {
+            window.location.href = 'index.html'; // Redirect jika belum login
+        } else {
+            document.getElementById('welcomeMessage').innerText = `Selamat datang, ${username}!`;
+
+            if (role === 'admin') {
+                document.getElementById('adminSection').style.display = 'block';
+            } else if (role === 'user') {
+                document.getElementById('userSection').style.display = 'block';
+            }
+        }
+
+        // Fungsi logout
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
